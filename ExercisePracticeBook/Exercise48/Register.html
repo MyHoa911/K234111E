@@ -1,0 +1,145 @@
+<html>
+    <head>
+        <title>Exercise 48 - Lê Thị Mỹ Hòa</title>
+        <style type="text/css">
+            td {
+                padding: 2px;
+                vertical-align: middle;
+            }
+            body {
+                background-color: lightskyblue;
+                font-family: 'Times New Roman', Times, serif;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div align="center"><img src="images/Jackson.gif"/></div>
+        <form onsubmit="alert('Registration Successful!'); return false;">
+            <h2 align="center">Registration Form</h2>
+            <p align="center">Register your Jackson Electronics product here</p>
+            <table>
+                <colgroup>
+                    <col span="1" style="width: 30%;">
+                    <col span="1" style="width: 30%;">
+                    <col span="1" style="width: 10%;">
+                    <col span="1" style="width: 35%;">
+                </colgroup>
+                <tr>
+                    <td>First Name:</td>
+                    <td>
+                        <input type="text" name="firstname" id="firstname"/>
+                    </td>
+                    <td>Last Name:</td>
+                    <td>
+                        <input type="text" name="lastname" id="lastname" size="10"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Address #1:</td>
+                    <td colspan="3">
+                        <input type="text" name="address1" id="address1"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Address #2:</td>
+                    <td colspan="3">
+                        <input type="text" name="address2" id="ad" style="width: 400px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>City:</td>
+                    <td>
+                        <input type="text" name="city" id="city"/>
+                    </td>
+                    <td>State:</td>
+                    <td>
+                        <input type="text" name="state" id="state" size="5"/>
+                    Zip:<input type="text" name="zip" id="zip" size="7"/></td>
+                </tr>
+                <tr>
+                    <td>Country:</td>
+                    <td colspan="3">
+                        <input type="text" name="country" value="United States" id="country" size="30"/>
+                    </td>
+                </tr>
+            </table>
+            <hr/>
+            <table>
+                <colgroup>
+                    <col span="1" style="width: 36%;">
+                    <col style="width: 30%;">
+                    <col style="width: 15%;">
+                    <col style="width: 35%;">
+                </colgroup>
+                <tr>
+                    <td>Product:</td>
+                    <td colspan="3">
+                        <select>
+                            <option>ScanMaster</option>
+                            <option>Printer</option>
+                            <option>Monitor</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date Purchased:</td>
+                    <td colspan="3">
+                        <input type="text" name="date" id="date"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Serial #:</td>
+                    <td colspan="3">
+                        <input type="number" name="serial" id="serial"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Used for:</td>
+                    <td colspan="3">
+                        <input type="radio" name="home" value="home" id="home"/> 
+                        <label for="home">Home</label>
+                        <input type="radio" name="educational" value="educational" id="educational"/> 
+                        <label for="educational">Educational Institution</label>
+                        <br/>
+                        <input type="radio" name="business" value="business" id="business"/> 
+                        <label for="business">Business</label>
+                        <input type="radio" name="other" value="other" id="other"/> 
+                        <label for="other">Other</label>
+                        <br/>
+                        <input type="radio" name="government" value="government" id="government"/> 
+                        <label for="government">Government</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>System (check all that apply):</td>
+                    <td>
+                        <input type="checkbox" name="windows" value="windows" id="windows"/>
+                        <label for="windows">Windows</label>
+                        <input type="checkbox" name="unix" value="unix" id="unix"/>
+                        <label for="unix">UNIX</label>
+                        <br/>
+                        <input type="checkbox" name="mac" value="mac" id="mac"/>
+                        <label for="mac">Macintosh</label>
+                        <input type="checkbox" name="other" value="other" id="other"/>
+                        <label for="other">Other</label>
+                    </td>
+                </tr>
+            </table>
+            <hr/>
+            <table>
+                <tr>
+                    <td style="width: 200; vertical-align:top;">Comments:</td>
+                    <td>
+                        <textarea name="comments" style="width: 400; height: 100;"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <div align="center">
+                <input type="submit" value="Click to register"/>
+                <input type="reset" value="Click to cancel"/>
+            </div>
+        </form>
+    </body>
+</html>
