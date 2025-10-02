@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title>Exercise 49 - Lê Thị Mỹ Hòa</title>
+        <style type="text/css">
+            body{
+                background-color: cyan;
+                font-family: 'Times New Roman', Times, serif;
+            }
+            h2 {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <form>
+            <h2>Online Classifieds Search Form</h2>
+            <hr/>
+
+            <div style="margin: 5px;">
+                <b>1) Search for a classified in the following sections:</b><br/><br/>
+                <input type="radio" name="emp" id="emp"> 
+                <label for="emp">Employment</label>
+                <input type="radio" name="per" id="per"> 
+                <label for="per">Personal</label>
+                <br/>
+                <input type="radio" name="sale" id="sale"> 
+                <label for="sale">For Sale</label>
+                <input type="radio" name="mis" id="mis"> 
+                <label for="mis">Miscellanecus</label>
+                <br/>
+                <input type="radio" name="housing" id="housing"> 
+                <label for="housing">Housing</label>
+                <input type="radio" name="all" id="all"> 
+                <label for="all">All of the above</label>
+            </div>
+            <br/>
+            <div style="margin: 5px;">
+                <b>2) Search the following publications:</b><br/><br/>
+                <input type="checkbox" name="mid" id="mid"> 
+                <label for="mid">Midwest Times</label>
+                <input type="checkbox" name="mo" id="mo"> 
+                <label for="mo">Modern News</label>
+                
+                <input type="checkbox" name="employ" id="employ"> 
+                <label for="employ">Employment Today</label>
+                <br/>
+
+                <input type="checkbox" name="great" id="great"> 
+                <label for="great">Great Lakes Classifieds</label>
+                <input type="checkbox" name="midd" id="midd"> 
+                <label for="midd">Middleton Daily</label>
+                <input type="checkbox" name="cash" id="cash"> 
+                <label for="cash">Cashtown Daily News</label>
+            </div>
+            <br/>
+            <div>
+                <b>3) From to</b>
+                <input type="date" name="from"/> to 
+                <input type="date" name="to"/>
+            </div>
+            <br/>
+            <div>
+                <b>4) Enter a few keywords to describe the classified.</b><br/><br/>
+                <input type="text" name="keywords" style="width:95%;"/>
+            </div>
+            <br/>
+            <div>
+                <b>5) Click one of the options below:</b><br/>
+            </div>
+            <br/>
+            <div>
+                <input type="image" src="images/Search.gif" alt="Search" width="60" height="60" 
+                    onclick="alert('Search simulation'); return false;"/>
+                <input type="image" src="images/Help.gif" alt="Help" width="60" height="60" 
+                    onclick="alert('This is the help page'); return false;"/>
+                <input type="image" src="images//Cancel.gif" alt="Cancel" width="60" height="60" 
+                    onclick="document.getElementById('classifiedForm').reset(); return false;"/>
+            </div>
+        </form>
+    </body>
+</html>
