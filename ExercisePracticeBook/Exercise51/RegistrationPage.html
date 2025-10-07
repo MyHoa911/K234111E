@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <title>Exercise 51 - Lê Thị Mỹ Hòa</title>
+        <style>
+            body {
+                background-color: darkcyan;
+                color: white;
+            }
+            h1 {
+                font-family: Arial, Helvetica, sans-serif;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <form name="Registration" onsubmit="alert('Registration Successful!'); return false;">
+            <div align="center">
+                <img src="Logo.gif"/>
+            </div>
+            <h1>Newborn Registration</h1>
+            <label for="date">Date:</label><input type="date" name="date" id="date"/>
+            <p>
+                <label for="fr_name">1) Infant's first name: </label> 
+                <input type="text" name="fr_name" id="fr_name"/> 
+                <label for="last">Last: </label> 
+                <input type="text" name="last" id="last"/>
+            </p>
+            <p>
+                <label for="record">2) Medical Record #:</label> 
+                <input type="text" name="record" id="record" style="width: 80px;"/>
+            </p>
+            <p>
+                <label for="dob">3) Date of birth: </label> 
+                <input type="date" name="dob" id="dob"/>
+            </p>
+            <p>
+                <label for="weight">4) Birth weight: </label> 
+                <input type="text" name="weight" id="weight" style="width: 80px;"/>
+            </p>
+            <p>
+                <label for="apgar">5) APGAR score: </label> 
+                <input type="number" name="apgar" id="apgar" style="width: 60px;"/>
+            </p>
+            <p>
+                <label for="mother_fr_name">6) Mother's first name: </label> 
+                <input type="text" name="mother_fr_name" id="mother_fr_name"/> 
+                <label for="mother_last">Last: </label> 
+                <input type="text" name="mother_last" id="mother_last"/>
+            </p>
+            <p>
+                <label for="father_fr_name">7) Father's first name: </label> 
+                <input type="text" name="father_fr_name" id="father_fr_name"/> 
+                <label for="father_last">Last: </label> 
+                <input type="text" name="father_last" id="father_last"/>
+            </p>
+            <p>
+                <label style="display: inline-block; width: 220px; vertical-align: top;">
+                    8) Physician (check all that apply):
+                </label>
+                <select name="physician" multiple size="4">
+                    <option>Dr. Warren Albert</option>
+                    <option>Dr. Maria Alvarez</option>
+                    <option>Dr. Karen Brinkman</option>
+                    <option>Dr. Micheal Kerry</option>
+                </select>
+            </p>
+            <div align="center">
+                <input type="submit" value="Register"/> 
+                <input type="reset" value="Cancel"/>
+            </div>
+        </form>
+    </body>
+</html>
