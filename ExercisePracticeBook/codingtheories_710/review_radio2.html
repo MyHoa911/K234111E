@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Tiêu đề trang</title>
+        <script>
+            function show_image(value)
+            {
+                //step 1: Get image object by taylor_avatar id
+                img=document.getElementById("taylor_avatar")
+                //step 2: Set style attribute for show image
+                img.setAttribute("style", "display:"+value)
+            }
+        </script>
+    </head>
+    <body>
+        <form name="myform">
+            <input type="radio" name="myimage" id="img1" onchange="show_image('block')"/> 
+            <!-- ở ngoài nháy đôi thì trong ngoặc nháy đơn -->
+            <label for="img1">Show Image</label>
+            <br/>
+            <input type="radio" name="myimage" id="img2" onchange="show_image('none')"/>
+            <!-- ở ngoài nháy đơn thì trong ngoặc nháy đôi -->
+            <label for="img2">Hide Image</label>
+            <br/>
+            <img src="../learn_css/studentcard/images/ThẻSV1.jpg" width="20%" id="taylor_avatar" name="taylor_avatar"/>
+        </form>
+    </body>
+</html>
