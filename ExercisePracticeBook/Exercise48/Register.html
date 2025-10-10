@@ -44,7 +44,7 @@
                 <tr>
                     <td>Address #2:</td>
                     <td colspan="3">
-                        <input type="text" name="address2" id="ad" style="width: 400px;"/>
+                        <input type="text" name="address2" id="address2" style="width: 400px;"/>
                     </td>
                 </tr>
                 <tr>
@@ -97,17 +97,17 @@
                 <tr>
                     <td>Used for:</td>
                     <td colspan="3">
-                        <input type="radio" name="home" value="home" id="home"/> 
+                        <input type="radio" name="used_for" value="home" id="home"/> 
                         <label for="home">Home</label>
-                        <input type="radio" name="educational" value="educational" id="educational"/> 
+                        <input type="radio" name="used_for" value="educational" id="educational"/> 
                         <label for="educational">Educational Institution</label>
                         <br/>
-                        <input type="radio" name="business" value="business" id="business"/> 
+                        <input type="radio" name="used_for" value="business" id="business"/> 
                         <label for="business">Business</label>
-                        <input type="radio" name="other" value="other" id="other"/> 
-                        <label for="other">Other</label>
+                        <input type="radio" name="used_for" value="other" id="other_use"/> 
+                        <label for="other_use">Other</label>
                         <br/>
-                        <input type="radio" name="government" value="government" id="government"/> 
+                        <input type="radio" name="used_for" value="government" id="government"/> 
                         <label for="government">Government</label>
                     </td>
                 </tr>
@@ -115,15 +115,15 @@
                 <tr>
                     <td>System (check all that apply):</td>
                     <td>
-                        <input type="checkbox" name="windows" value="windows" id="windows"/>
+                        <input type="checkbox" name="sys" value="windows" id="windows"/>
                         <label for="windows">Windows</label>
-                        <input type="checkbox" name="unix" value="unix" id="unix"/>
+                        <input type="checkbox" name="sys" value="unix" id="unix"/>
                         <label for="unix">UNIX</label>
                         <br/>
-                        <input type="checkbox" name="mac" value="mac" id="mac"/>
+                        <input type="checkbox" name="sys" value="mac" id="mac"/>
                         <label for="mac">Macintosh</label>
-                        <input type="checkbox" name="other" value="other" id="other"/>
-                        <label for="other">Other</label>
+                        <input type="checkbox" name="sys" value="other" id="other_sys"/>
+                        <label for="other_sys">Other</label>
                     </td>
                 </tr>
             </table>
