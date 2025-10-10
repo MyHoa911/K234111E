@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>Exercise 53 - Lê Thị Mỹ Hòa</title>
+        <style>
+            table {
+                text-align: center;
+                width: 100%;
+            }
+            input[type="submit"] {
+                width: 80px;
+                background-color: orange;
+                border-color: darkorange;
+                color: white;
+                cursor: pointer;
+                padding: 8px;
+                margin-top: 10px;
+                
+            }
+            input[type="submit"]:hover {
+                background-color: darkorange;
+            }
+        </style>
+    </head>
+    <body>
+        <form name="product" action="sum.html" method="get">
+            <table cellspacing="8">
+                <tr>
+                    <th>Part Number</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Item Table</th>
+                </tr>
+                <tr>
+                    <td>C112</td>
+                    <td>Mouse</td>
+                    <td>19.95$</td>
+                    <td>
+                        <input type="text" name="qty1" id="qty1"/>
+                    </td>
+                    <td>
+                        <input type="text" name="item1" id="item1"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>B124</td>
+                    <td>Keyboard US</td>
+                    <td>29.95$</td>
+                    <td>
+                        <input type="text" name="qty2" id="qty2"/>
+                    </td>
+                    <td>
+                        <input type="text" name="item2" id="item2"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>U125</td>
+                    <td>USB KingMax </td>
+                    <td>39.95$</td>
+                    <td>
+                        <input type="text" name="qty3" id="qty3"/>
+                    </td>
+                    <td>
+                        <input type="text" name="item3" id="item3"/>
+                    </td>
+                </tr>
+            </table>
+            <hr/>
+            <div align="right">
+                <label for="total">Total:</label>
+                <input type="text" name="total" id="total"/>
+            </div>
+            <div align="right">
+                <input type="submit" name="sum" id="sum" value="SUM"/>
+            </div>
+        </form>
+    </body>
+</html>

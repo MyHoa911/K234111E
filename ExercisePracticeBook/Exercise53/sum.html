@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Product - GET Result</title>
+        <style>
+            body {
+                background-color: aliceblue;
+                font-family: Arial, Helvetica, sans-serif;
+                margin: 10px;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin: 10px;
+            }
+            caption {
+                font-size: 22px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                color: darkblue;
+            }
+            th, td {
+                border: 1px solid grey;
+                padding: 8px;
+                text-align: center;
+            }
+            th {
+                background-color: lightsteelblue;
+            }
+            #total {
+                font-weight: bold;
+                color: red;
+            }
+        </style>
+        <script>
+            function getUrlVars() {
+                var vars = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+                    function(m, key, value) {
+                        vars[key] = value;
+                    });
+                return vars;
+            }
+
+            function showData() {
+                var q1 = parseFloat(getUrlVars()["qty1"]) || 0;
+                var q2 = parseFloat(getUrlVars()["qty2"]) || 0;
+                var q3 = parseFloat(getUrlVars()["qty3"]) || 0;
+
+                var p1 = 19.95, p2 = 29.95, p3 = 39.95;
+
+                var item1 = q1 * p1;
+                var item2 = q2 * p2;
+                var item3 = q3 * p3;
+
+                var total = item1 + item2 + item3;
+
+                document.getElementById("qty1").innerHTML = q1;
+                document.getElementById("qty2").innerHTML = q2;
+                document.getElementById("qty3").innerHTML = q3;
+
+                document.getElementById("item1").innerHTML = item1.toFixed(2) + "$";
+                document.getElementById("item2").innerHTML = item2.toFixed(2) + "$";
+                document.getElementById("item3").innerHTML = item3.toFixed(2) + "$";
+                document.getElementById("total").innerHTML = total.toFixed(2) + "$";
+            }
+        </script>
+    </head>
+    <body onload="showData()">
+        <table>
+            <caption>Product Summary</caption>
+            <tr>
+                <th>Part Number</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Item total</th>
+            </tr>
+            <tr>
+                <td>C112</td>
+                <td>Mouse</td>
+                <td>19.95$</td>
+                <td id="qty1"></td>
+                <td id="item1"></td>
+            </tr>
+            <tr>
+                <td>B124</td>
+                <td>Keyboard US</td>
+                <td>29.95$</td>
+                <td id="qty2"></td>
+                <td id="item2"></td>
+            </tr>
+            <tr>
+                <td>U125</td>
+                <td>USB KingMax</td>
+                <td>39.95$</td>
+                <td id="qty3"></td>
+                <td id="item3"></td>
+            </tr>
+            <tr>
+                <td colspan="4" style="text-align: right; font-weight: bold;">Total:</td>
+                <td id="total"></td>
+            </tr>
+        </table>
+    </body>
+</html>
