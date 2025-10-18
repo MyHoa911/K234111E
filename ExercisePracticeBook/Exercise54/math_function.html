@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>Exercise 54 - Lê Thị Mỹ Hòa</title>
+        <script>
+            function find_max() {
+                a = parseFloat(mathfunction.a.value)
+                b = parseFloat(mathfunction.b.value)
+                c = parseFloat(mathfunction.c.value)
+                result = document.getElementById("result")
+
+                if (isNaN(a) && isNaN(b) && isNaN(c)) {
+                    result.innerHTML = "<font color='red'>Invalid input!</font>"
+                } else {
+                    max_val = Math.max(a, b, c)
+                    result.innerHTML = "<font color='red'>Max = " + max_val + "</font>"
+                }
+            }
+
+            function find_min() {
+                a = parseFloat(mathfunction.a.value)
+                b = parseFloat(mathfunction.b.value)
+                c = parseFloat(mathfunction.c.value)
+                result = document.getElementById("result")
+
+                if (isNaN(a) && isNaN(b) && isNaN(c)) {
+                    result.innerHTML = "<font color='red'>Invalid input!</font>"
+                } else {
+                    min_val = Math.min(a, b, c)
+                    result.innerHTML = "<font color='red'>Min = " + min_val + "</font>"
+                }
+            }
+
+            function calc_sin() {
+                a = parseFloat(mathfunction.a.value)
+                result = document.getElementById("result")
+
+                if (isNaN(a)) {
+                    result.innerHTML = "<font color='red'>Enter a valid number for a!</font>"
+                } else {
+                    rad = a * Math.PI / 180
+                    result.innerHTML = "<font color='red'>sin(" + a + ") = " + Math.sin(rad) + "</font>"
+                }
+            }
+
+            function calc_cos() {
+                a = parseFloat(mathfunction.a.value)
+                result = document.getElementById("result")
+
+                if (isNaN(a)) {
+                    result2.innerHTML = "<font color='red'>Enter a valid number for a!</font>"
+                } else {
+                    rad = a * Math.PI / 180
+                    result.innerHTML = "<font color='red'>cos(" + a + ") = " + Math.cos(rad) + "</font>"
+                }
+            }
+
+            function calc_pow() {
+                a = parseFloat(mathfunction.a.value)
+                b = parseFloat(mathfunction.b.value)
+                result = document.getElementById("result")
+
+                if (isNaN(a) && isNaN(b)) {
+                    result.innerHTML = "<font color='red'>Enter valid numbers for a and b!</font>"
+                } else {
+                    result.innerHTML = "<font color='red'>" + a + "^" + b + " = " + Math.pow(a, b) + "</font>"
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <form name="mathfunction">
+            <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse;">
+                <tr>
+                    <td>a:</td>
+                    <td><input type="text" name="a" /></td>
+                </tr>
+                <tr>
+                    <td>b:</td>
+                    <td><input type="text" name="b" /></td>
+                </tr>
+                <tr>
+                    <td>c:</td>
+                    <td><input type="text" name="c" /></td>
+                </tr>
+                <tr>
+                    <td>Result:</td>
+                    <td id="result"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;">
+                        <button type="button" onclick="find_max()">MAX</button>
+                        <button type="button" onclick="find_min()">MIN</button>
+                        <button type="button" onclick="calc_sin()">sin(a)</button>
+                        <button type="button" onclick="calc_cos()">cos(a)</button>
+                        <button type="button" onclick="calc_pow()">a^b</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

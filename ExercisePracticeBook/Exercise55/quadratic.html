@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <title>Exercise 55 - Lê Thị Mỹ Hòa</title>
+        <script>
+            function solve()
+            {
+                a = quadratic.a.value
+                b = quadratic.b.value
+                c = quadratic.c.value
+                result = document.getElementById("result")
+
+                if (a == "" || b == "" || c == "" || isNaN(a) || isNaN(b) || isNaN(c))
+                {
+                    result.innerHTML = "<font color='red'>Invalid input!</font>"
+                    return
+                }
+
+                a = parseFloat(a)
+                b = parseFloat(b)
+                c = parseFloat(c)
+
+                if (a == 0)
+                {
+                    if (b == 0)
+                    {
+                        if (c == 0)
+                            result_text = "Infinite solutions"
+                        else
+                            result_text = "No solution"
+                    }
+                    else
+                    {
+                        result_text = "x = " + (-c / b).toFixed(2)
+                    }
+                }
+                else
+                {
+                    delta = b*b - 4*a*c
+                    if (delta < 0)
+                        result_text = "No real solution"
+                    else if (delta == 0)
+                        result_text = "x1 = x2 = " + (-b / (2*a)).toFixed(2)
+                    else
+                    {
+                        x1 = (-b + Math.sqrt(delta)) / (2*a)
+                        x2 = (-b - Math.sqrt(delta)) / (2*a)
+                        result_text = "x1 = " + x1.toFixed(2) + " ; x2 = " + x2.toFixed(2)
+                    }
+                }
+
+                result.innerHTML = "<font color='red'>" + result_text + "</font>"
+            }
+            function clear_result()
+            {
+                document.getElementById("result").innerHTML=""
+            }
+        </script>
+    </head>
+    <body>
+        <form name="quadratic">
+            <table border="1">
+                <tr>
+                    <td colspan="2" style="background-color: lightblue; font-weight: bold; text-align: center;">The quadratic equation</td>
+                </tr>
+                <tr>
+                    <td>a:</td>
+                    <td>
+                        <input type="text" name="a" id="a"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>b:</td>
+                    <td>
+                        <input type="text" name="b" id="b"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>c:</td>
+                    <td>
+                        <input type="text" name="c" id="c"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Result:</td>
+                    <td id="result"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="button" onclick="solve()">Find solution</button> 
+                        <button type="reset" onclick="clear_result()">Clear</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        
+    </body>
+</html>
