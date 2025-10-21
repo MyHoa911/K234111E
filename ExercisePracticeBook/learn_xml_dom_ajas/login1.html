@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <title>Login</title>
+        <script type="text/javascript">
+            accounts=[
+                {
+                "UserName":"admin",
+                "FullName":"Lê Thị Mỹ Hòa",
+                "Password":"123"
+                },
+                {
+                "UserName":"reporter",
+                "FullName":"Nguyễn Thị Thanh Hìn",
+                "Password":"456"
+                },
+            ]
+        </script>
+        <script type="text/javascript">
+            function select_one(uid,pwd)
+            {
+                for (i=0;i<accounts.length;i++)
+                {
+                    ac=accounts[i]
+                    if(ac.UserName==uid && ac.Password==pwd)
+                    {
+                        return ac
+                    }
+                }
+                return null
+            }
+            function process_login()
+            {
+                ac_login=select_one(my_form.username.value,my_form.pasword.value)
+                if (ac_login=null)
+                {
+                    alert("Login failed, contact to ADMIN please!!")
+                    return
+                }
+                else
+                {
+                    // convert JSON object to JSON string
+                    jsonString=JSON.stringify(ac_login)
+                    localStorage.setItem("login_infor",jsonString)
+                    localStorage.setItem("save_info", my_form.save_info.checked)
+
+                    if(ac_login.UserName=="admin")
+                    {
+                        window.open("books_cover.html","_self")
+                    }
+                    else
+                    {
+                        window.open("xml_ajas.html","_self")
+                    }
+                }
+                
+            }
+        </script>
+    </head>
+    <body>
+        <form name="my_form">
+            <fieldset>
+                <table>
+                    <tr>
+                        <td colspan="2">Login to my ADMIN</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="6">
+                            <img src="images/ic_admin.png" width="250" height="350"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>User:</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="user_name" id="user_name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="password" name="password" id="password"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="save_info" id="save_info"/>
+                            <label  for="save_info">Save Login Information</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button type="button">Login</button>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+        <script type="text/javascript">
+            jsonString=localStorage.getItem("login_infor")
+            // convert string to object:
+            jsonOject=JSON.parse(jsonString)
+            save=localStorage.getItem("save_info")
+            if (save='true')
+            {
+                my_form.username.value=jsonOject.UserName
+                my_form.password.value=jsonOject.Password
+                my_form.save_info=checked=true
+            }
+        </script>
+    </body>
+</html>
