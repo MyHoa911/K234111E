@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>Exercise 66 - Lê Thị Mỹ Hòa</title>
+    </head>
+
+    <body>
+        <table border="1" cellspacing="0" cellpadding="5">
+            <tr style="background-color:green; color: white; font-weight:bold; text-align:center;">
+                <td colspan="2">Student Information</td>
+            </tr>
+            <tr>
+                <td>Student ID:</td>
+                <td id="td_id"></td>
+            </tr>
+            <tr>
+                <td>Student Name:</td>
+                <td id="td_name"></td>
+            </tr>
+            <tr>
+                <td>Birthday:</td>
+                <td id="td_birthday"></td>
+            </tr>
+            <tr>
+                <td>Gender:</td>
+                <td id="td_gender"></td>
+            </tr>
+        </table>
+
+        <script type="text/javascript">
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() 
+            {
+                if (this.readyState == 4 && this.status == 200) 
+                {
+                    var parser = new DOMParser();
+                    var xmlDoc = parser.parseFromString(this.responseText, "text/xml");
+
+                    id = xmlDoc.getElementsByTagName("id")[0].childNodes[0].nodeValue;
+                    name = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+                    birthday = xmlDoc.getElementsByTagName("birthday")[0].childNodes[0].nodeValue;
+                    gender = xmlDoc.getElementsByTagName("gender")[0].childNodes[0].nodeValue;
+
+                    td_id.innerText = id;
+                    td_name.innerText = name;
+                    td_birthday.innerText = birthday;
+                    td_gender.innerText = gender;
+
+                    
+                    var rows = document.getElementsByTagName("tr");
+                    for (var i = 1; i < rows.length; i++) 
+                    {
+                        rows[i].onmouseover = function() 
+                        {
+                            this.style.backgroundColor = "pink";
+                            this.style.color = "white";
+                        };
+
+                        rows[i].onmouseout = function() 
+                        {
+                            this.style.backgroundColor = "white";
+                            this.style.color = "black";
+                        };
+                    }
+                }
+            };
+            xhttp.open("GET", "student.xml", true);
+            xhttp.send();
+        </script>
+    </body>
+</html>
