@@ -11,6 +11,8 @@
         <select id="provinces" onchange="show_detail_weather_forecast(this.value)">
         </select>
 
+        <div id="my_div"></div>
+
         <script type="text/javascript">
             function load_provinces() {
                 var provinces = document.getElementById("provinces");
@@ -26,22 +28,20 @@
 
             load_provinces();
 
-            function show_detail_weather_forecast(value) 
-            {
-                proxy="https://api.allorigins.win/raw?url="
+            function show_detail_weather_forecast(value) {
+                proxy = "https://api.allorigins.win/raw?url=";
                 var api = "https://utils3.cnnd.vn/ajax/weatherinfo/" + value + ".htm";
-                api_proxy=proxy+api
-                my_div.innerText="Loading....please wait...."
-                var shr=new XMLHttpRequest()
-                xhr.open("get",api_proxy,true)
-                xhr.send()
-                xhr.onreadystatechange=function()
-                {
-                    if(xhr.readyState==4 && shr.status==200)
-                    {
-                        string_json=xhr.responseText
-                        my_div.innerText=string_json
-                        object_json=JSON.parse(string_json)
+                api_proxy = proxy + api;
+                my_div.innerText = "Loading....please wait....";
+                var xhr = new XMLHttpRequest();
+                xhr.open("get", api_proxy, true);
+                xhr.send();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) 
+                    { 
+                        string_json = xhr.responseText;
+                        my_div.innerText = string_json;
+                        object_json = JSON.parse(string_json);
                     }
                 }
             }
