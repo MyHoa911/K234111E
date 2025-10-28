@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dự Báo Thời Tiết</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
+
+    body {
+      background: linear-gradient(120deg, #89f7fe, #66a6ff, #f6d365, #fda085);
+      background-size: 400% 400%;
+      animation: bgShift 15s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      color: #333;
+    }
+
+    @keyframes bgShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h3 {
+      color: white;
+      text-shadow: 0 0 10px rgba(255,255,255,0.8);
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #00c6ff; }
+      to { text-shadow: 0 0 20px #fff, 0 0 40px #ff758c; }
+    }
+
+    .select-wrapper {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    #provinces {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    #provinces:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255,255,255,0.8);
+    }
+
+    .weather-info {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(12px);
+      border-radius: 25px;
+      padding: 30px;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      color: white;
+      text-align: center;
+      transition: all 0.4s ease;
+    }
+
+    .current-weather {
+      padding: 20px;
+    }
+
+    .current-weather h2 {
+      font-size: 2em;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .temp {
+      font-size: 4em;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ffd6a5;
+    }
+
+    .description {
+      font-size: 1.2em;
+      color: #ffe66d;
+      margin-bottom: 10px;
+    }
+
+    .weather-details {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .detail-item {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      color: #333;
+      border-radius: 15px;
+      padding: 15px 20px;
+      width: 150px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+      transition: 0.3s;
+    }
+
+    .detail-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255,255,255,0.7);
+    }
+
+    .hourly-forecast {
+      margin-top: 25px;
+    }
+
+    .hourly-forecast h3 {
+      font-size: 1.5em;
+      color: #fff;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(255,255,255,0.6);
+    }
+
+    .hourly-list {
+      display: flex;
+      overflow-x: auto;
+      gap: 15px;
+      padding: 10px;
+      scroll-behavior: smooth;
+    }
+
+    .hour-item {
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      color: #333;
+      padding: 15px;
+      border-radius: 15px;
+      min-width: 120px;
+      box-shadow: 0 5px 8px rgba(0,0,0,0.15);
+      transition: 0.3s;
+    }
+
+    .hour-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px rgba(255,255,255,0.8);
+    }
+
+    .time {
+      font-weight: bold;
+      color: #0077b6;
+    }
+
+    .loading {
+      text-align: center;
+      color: #fff;
+      font-size: 1.3em;
+      padding: 40px;
+    }
+
+    .error {
+      background: linear-gradient(90deg, #ff6b6b, #ffb6b9);
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      margin: 20px 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .info-box {
+      background: linear-gradient(90deg, #43cea2, #185a9d);
+      color: white;
+      padding: 18px;
+      border-radius: 15px;
+      margin-top: 25px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* scrollbar styling */
+    .hourly-list::-webkit-scrollbar {
+      height: 8px;
+    }
+    .hourly-list::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.5);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>🌈 Dự Báo Thời Tiết Việt Nam</h3>
+
+  <div class="select-wrapper">
+    <select id="provinces" onchange="show_detail_weather_forecast(this.value)">
+      <option value="">Chọn tỉnh thành...</option>
+    </select>
+  </div>
+
+  <div id="weatherDisplay" class="weather-info"></div>
+
+  <script>
+    // giữ nguyên toàn bộ JS cũ
+    const id = ['2347719','20070078','20070086','2347731','2347730','20070081','20070087','20070084','20070088','2347703','2347704','20070082','2347732','28301718','20070085','1252375','2347720','28301719','2347721','2347722','2347733','2347727','2347728','2347734','2347741','2347736','2347737','20070079','20070080','2347707','28301720','2347738','2347723','20070076','2347708','2347710','2347740','2347709','2347718','20070089','2347742','2347743','2347744','20070091','2347745','2347746','2347711','20070077','2347712','2347747','2347748','2347713','2347715','2347716','20070083','2347749','2347717','2347750','2347751','2347714','2347752','20070090','2347729','2347753'];
+    const names = ['An Giang','Bình Dương','Bình Phước','Bình Thuận','Bình Định','Bạc Liêu','Bắc Giang','Bắc Kạn','Bắc Ninh','Bến Tre','Cao Bằng','Cà Mau','Cần Thơ','Điện Biên','Đà Nẵng','Đà Lạt','Đắk Lắk','Đắk Nông','Đồng Nai','Đồng Tháp','Gia Lai','Hà Nội','TP. Hồ Chí Minh','Hà Giang','Hà Nam','Hà Tĩnh','Hòa Bình','Hưng Yên','Hải Dương','Hải Phòng','Hậu Giang','Khánh Hòa','Kiên Giang','Kon Tum','Lai Châu','Long An','Lào Cai','Lâm Đồng','Lạng Sơn','Nam Định','Nghệ An','Ninh Bình','Ninh Thuận','Phú Thọ','Phú Yên','Quảng Bình','Quảng Nam','Quảng Ngãi','Quảng Ninh','Quảng Trị','Sóc Trăng','Sơn La','Thanh Hóa','Thái Bình','Thái Nguyên','Thừa Thiên Huế','Tiền Giang','Trà Vinh','Tuyên Quang','Tây Ninh','Vĩnh Long','Vĩnh Phúc','Vũng Tàu','Yên Bái'];
+
+    function load_provinces() {
+      const provincesSelect = document.getElementById('provinces');
+      for (let i = 0; i < id.length; i++) {
+        const opt = document.createElement('option');
+        opt.value = id[i];
+        opt.textContent = names[i];
+        provincesSelect.appendChild(opt);
+      }
+    }
+
+    async function show_detail_weather_forecast(cityId) {
+      if (!cityId) return;
+      const weatherDisplay = document.getElementById('weatherDisplay');
+      weatherDisplay.innerHTML = '<div class="loading">⏳ Đang tải dữ liệu thời tiết...</div>';
+      try {
+        const apiUrl = `https://utils3.cnnd.vn/ajax/weatherinfo/${cityId}.htm`;
+        const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`);
+        const json = await response.json();
+        const data = JSON.parse(json.contents);
+        displayWeather(data, cityId);
+      } catch (error) {
+        weatherDisplay.innerHTML = `<div class="error">❌ Không thể tải dữ liệu: ${error.message}</div>`;
+      }
+    }
+
+    function displayWeather(data, cityId) {
+      const weatherDisplay = document.getElementById('weatherDisplay');
+      if (!data?.Data?.data?.datainfo) {
+        weatherDisplay.innerHTML = '<div class="error">❌ Dữ liệu không hợp lệ</div>';
+        return;
+      }
+      const info = data.Data.data.datainfo;
+      const locationName = names[id.indexOf(cityId)] || 'Không xác định';
+      let html = `
+        <div class="current-weather">
+          <h2>📍 ${locationName}</h2>
+          <div class="temp">${info.temperature || 'N/A'}°C</div>
+          <div class="description">${info.status || 'Đang cập nhật'}</div>
+          <div style="color:#fff;opacity:0.8;">Cảm giác như ${info.feels_like || 'N/A'}°C</div>
+        </div>
+        <div class="hourly-forecast"><h3>⏰ Dự báo theo giờ</h3><div class="hourly-list">`;
+      if (Array.isArray(info.hourly_temperature)) {
+        info.hourly_temperature.forEach(h => {
+          html += `
+            <div class="hour-item">
+              <div class="time">${h.time || 'N/A'}h</div>
+              <div class="temp">${h.temperature || '?'}°C</div>
+              <div class="desc">${h.status || ''}</div>
+            </div>`;
+        });
+      }
+      html += `</div></div>
+        <div class="weather-details">
+          <div class="detail-item">💧 Độ ẩm<br>${info.humidity || 'N/A'}%</div>
+          <div class="detail-item">💨 Gió<br>${info.wind?.index || 'N/A'}</div>
+          <div class="detail-item">☀️ UV<br>${info.UV_index?.index || 'N/A'}</div>
+          <div class="detail-item">🌅 Bình minh<br>${info.sunrise || 'N/A'}</div>
+          <div class="detail-item">🌇 Hoàng hôn<br>${info.sunset || 'N/A'}</div>
+        </div>
+        <div class="info-box">💡 Dữ liệu được cập nhật từ hệ thống dự báo thời tiết Việt Nam</div>`;
+      weatherDisplay.innerHTML = html;
+    }
+
+    load_provinces();
+    const hcmIndex = names.indexOf('TP. Hồ Chí Minh');
+    if (hcmIndex !== -1) {
+      document.getElementById('provinces').value = id[hcmIndex];
+      show_detail_weather_forecast(id[hcmIndex]);
+    }
+  </script>
+</body>
+</html>
