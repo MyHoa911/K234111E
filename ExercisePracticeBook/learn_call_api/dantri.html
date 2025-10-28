@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>Tiêu đề trang</title>
+    </head>
+    <body>
+        <table border="1">
+            <thead>
+                <tr>City</tr>
+                <tr>Buy</tr>
+                <tr>Sell</tr>
+            </thead>
+            <tbody id="gold_tbody">
+
+            </tbody>
+        </table>
+        <script type="text/javascript">
+            api_dantri="https://webapi.dantri.com.vn/misc"
+        </script>
+        <script type="text/javascript">
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET",true);
+            xhr.send();
+            xhr.onreadystatechange=function()
+            {
+                if (xhr.readyState==4 && xhr.status==200)
+                {
+                    danTriJson=xhr.responseText
+                    danTriObject=JSON.parse(danTriJson)
+                    display_gold(danTriObject)
+                    
+                }
+                else
+                {
+                    //handling when data can't be loaded
+                }
+            }
+        </script>
+        <script type="text/javascript">
+            function display_gold(danTriObject)
+            {
+                // alert(danTriObject.golds.lengths)
+                for(i=0;i<danTriObject.golds.length;i++)
+            {
+                tr=document.createElement("tr")
+                td_city=document.createElement("td")
+                td_buy=document.createElement("td")
+                td_sell=document.createElement("td")
+                gold=danTriObject.golds[i]
+                td_city.innerText=gold.name
+                td_buy.innerText=gold.buy
+                td_sell.innerText=gold.sell
+
+            }
+            }
+        </script>
+    </body>
+</html>
