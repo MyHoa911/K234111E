@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Part E - Footer</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: lightblue;
+            color: black;
+            padding-left: 15px;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+    </style>
+    <script>
+        function updateTime() {
+            const name = "Lê Thị Mỹ Hòa"; 
+            const now = new Date();
+            const day = now.getDate();
+            const month = now.getMonth() + 1;
+            const year = now.getFullYear();
+            const time = now.toLocaleTimeString();
+            const dateString = `${day}/${month}/${year} ${time}`;
+
+            document.getElementById("footerText").innerText =
+                `Designed by Student ${name}, today is ${dateString}`;
+        }
+
+        // Gọi lại hàm mỗi giây để cập nhật giờ
+        setInterval(updateTime, 1000);
+    </script>
+</head>
+<body onload="updateTime()">
+    <p id="footerText"></p>
+</body>
+</html>

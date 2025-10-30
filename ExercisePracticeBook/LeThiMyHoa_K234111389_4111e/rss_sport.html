@@ -1,0 +1,268 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>VnExpress — Tin Thể Thao</title>
+
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+        <style>
+        :root{
+            --bg: #e9edf3;
+            --card-bg: #e9edf3;
+            --text: #333;
+            --accent: #b92831;
+            --gold: #a88c3c;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 36px auto;
+            padding: 36px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .title {
+            font-size: 30px;
+            margin: 0;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .subtitle {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        button.refresh {
+            background: var(--bg);
+            padding: 10px 16px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--accent);
+            box-shadow: 4px 4px 10px #c5c9cd, -4px -4px 10px #ffffff;
+            transition: .2s ease-in-out;
+        }
+
+        button.refresh:hover {
+            transform: translateY(-2px);
+            box-shadow: 6px 6px 14px #c5c9cd, -6px -6px 14px #ffffff;
+        }
+
+        main.magazine {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 26px;
+        }
+
+        article.card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 18px;
+            box-shadow: 6px 6px 14px #c5c9cd, -6px -6px 14px #ffffff;
+            display: grid;
+            gap: 14px;
+            min-height: 280px;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: fadeIn .6s forwards;
+            transition: .3s ease;
+        }
+
+        article.card:hover {
+            transform: translateY(-6px);
+            box-shadow: 10px 10px 22px #c5c9cd, -10px -10px 22px #ffffff;
+        }
+
+        .media {
+            width: 100%;
+            height: 180px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: inset 3px 3px 8px #c5c9cd, inset -3px -3px 8px #ffffff;
+        }
+
+        .media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: .4s;
+        }
+
+        article.card:hover .media img {
+            transform: scale(1.06);
+        }
+
+        h2.headline {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        p.excerpt {
+            margin: 0;
+            font-size: 14px;
+            opacity: .9;
+            line-height: 1.5;
+        }
+
+        .meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            font-size: 12px;
+            opacity: .8;
+        }
+
+        .read-more {
+            text-decoration: none;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: none; }
+        }
+
+        @media(max-width: 980px) {
+            main.magazine { grid-template-columns: 1fr; }
+        }
+
+        footer {
+            text-align: center;
+            font-size: 12px;
+            opacity: .7;
+            margin-top: 30px;
+        }
+        </style>
+        </head>
+
+    <body>
+        <div class="page">
+            <header>
+            <div>
+                <h1 class="title">VnExpress</h1>
+                <div class="subtitle">Latest sports news & constant updates</div>
+            </div>
+            <div class="controls">
+                <button class="refresh" id="refreshBtn">🔄 Updating</button>
+            </div>
+            </header>
+
+            <main class="magazine" id="magazine"></main>
+
+            <footer>
+            © <span id="year"></span> VnExpress — Sport News
+            </footer>
+        </div>
+
+        <script>
+        const ALLORIGINS = "https://api.allorigins.win/get?url=";
+        const RSS_URL = "https://vnexpress.net/rss/the-thao.rss"; 
+        const magazine = document.getElementById('magazine');
+        const refreshBtn = document.getElementById('refreshBtn');
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        refreshBtn.addEventListener('click', loadRSS);
+
+        function el(tag, cls){ const e=document.createElement(tag); if(cls) e.className=cls; return e; }
+
+        async function loadRSS(){
+            refreshBtn.disabled = true;
+            refreshBtn.textContent = '⏳ Loading...';
+
+            try {
+            const res = await fetch(ALLORIGINS + encodeURIComponent(RSS_URL));
+            const payload = await res.json();
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(payload.contents, "text/xml");
+            const items = Array.from(xml.querySelectorAll("item"));
+            magazine.innerHTML = "";
+            items.sort((a,b)=> new Date(b.querySelector('pubDate').textContent) - new Date(a.querySelector('pubDate').textContent));
+            const limited = items.slice(0, 8);
+
+            limited.forEach((item, idx)=>{
+                const title = item.querySelector("title").textContent;
+                const link = item.querySelector("link").textContent;
+                const desc = item.querySelector("description").textContent;
+                const pub = item.querySelector("pubDate")?.textContent || "";
+                const imgMatch = desc.match(/<img[^>]+src="([^"]+)"/);
+                const imgSrc = imgMatch? imgMatch[1]: null;
+                const text = desc.replace(/<[^>]+>/g,'').trim();
+                const excerpt = text.length>200? text.slice(0,200)+'...':text;
+
+                const art = el('article','card');
+                art.style.animationDelay = (idx*.07)+'s';
+
+                const media = el('a','media');
+                media.href=link; media.target="_blank";
+
+                const img = el('img');
+                img.src = imgSrc || "";
+                img.alt = title;
+                media.appendChild(img);
+                art.appendChild(media);
+
+                const h = el('h2','headline');
+                const a = el('a');
+                a.href=link; a.target="_blank"; a.textContent=title; a.style.color='inherit'; a.style.textDecoration='none';
+                h.appendChild(a);
+                art.appendChild(h);
+
+                const p = el('p','excerpt');
+                p.textContent=excerpt;
+                art.appendChild(p);
+
+                const meta = el('div','meta');
+                const date = el('div');
+                date.textContent = formatDate(pub);
+                const read = el('a','read-more');
+                read.href=link; read.target="_blank"; read.textContent='Đọc tiếp →';
+                meta.appendChild(date);
+                meta.appendChild(read);
+                art.appendChild(meta);
+
+                magazine.appendChild(art);
+            });
+
+            } catch(err){
+            magazine.innerHTML="<div>Data Error</div>";
+            }
+
+            refreshBtn.disabled = false;
+            refreshBtn.textContent = '🔄 Updating';
+        }
+
+        function formatDate(d){
+            if(!d) return "";
+            const dt=new Date(d);
+            return dt.toLocaleDateString('vi-VN',{year:'numeric',month:'short',day:'numeric'})+" • "+dt.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'});
+        }
+
+        loadRSS();
+        </script>
+    </body>
+</html>

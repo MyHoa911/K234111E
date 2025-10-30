@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <title>A - Menu</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            #container {
+                border: 1px solid #000;
+                background: #d6e3b5;
+                width: 100%;
+                float: left;
+                text-indent: 0px;
+            }
+            #container ul {
+                list-style: none;
+                float: left;
+                background-color: #d6e3b5;
+                
+            }
+            #container ul li {
+                position: relative;
+                border-right: 1px solid #999;
+                float: left;
+            }
+            #container ul li a {
+                display: block;
+                padding: 10px 60px;
+                text-decoration: none;
+                color: black;
+                font-weight: bold;
+                text-align: center;
+            }
+            #container li a:hover {
+                background: yellow;
+            }
+            #container li ul {
+                position: absolute;
+                display: none;
+                top: 100%;
+                left: 0;
+                list-style: none;
+                width: 200px;
+                border: 1px solid #999;
+            }
+            #container li:hover ul {
+                display: block;
+            }
+
+            #container ul li ul li {
+                width: 100%;
+                border-bottom: 1px solid #aaa;
+            }
+
+            #container ul li ul li a {
+                display: block;
+                padding: 8px 12px;
+                text-align: left;
+            }
+            #container li ul.form_js {
+                background-color: #f7e7c2;
+            }
+            #container li ul.api {
+                background-color: #c7d8eb;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">  
+            <ul>
+                <li><a href="aboutme.html" target="main">About me</a></li>
+                <li><a href="#">Form & Javascript</a>
+                    <ul class="form_js">
+                        <li><a href="products.html" target="main">Products</a></li>
+                        <li><a href="employees.html" target="main">Employees</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">API and External</a>
+                    <ul class="api">
+                        <li><a href="weatherapi.html" target="main">Weather API</a></li>
+                        <li><a href="rss_sport.html" target="main">RSS</a></li>
+                    </ul>
+                </li>
+                <li><a id="loginLink" href="login.html" target="main">Login/ Logout</a></li>
+            </ul>
+        </div>
+        <script>
+            // Function to check login state and update menu
+            function updateLoginStatus() {
+                const loginLink = document.getElementById("loginLink");
+                const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+                if (isLoggedIn === "true") {
+                    loginLink.textContent = "Logout";
+                    loginLink.href = "#";
+                    loginLink.onclick = function() {
+                        localStorage.removeItem("isLoggedIn");
+                        alert("You have logged out!");
+                        updateLoginStatus();
+                        // Optional: reload page in frameset
+                        parent.location.reload();
+                    };
+                } else {
+                    loginLink.textContent = "Login";
+                    loginLink.href = "login.html";
+                    loginLink.onclick = null;
+                }
+            }
+
+            // Run on load
+            updateLoginStatus();
+        </script>
+    </body>
+</html> 

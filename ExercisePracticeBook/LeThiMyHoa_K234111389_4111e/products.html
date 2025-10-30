@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Product List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9ff;
+      margin: 0;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      color: #b92831;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 90%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+    th {
+      background-color: #b92831;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    tr:hover {
+      background-color: #f1f5ff;
+    }
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(15px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <h1>Product List</h1>
+  <table id="productTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Image</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const url = "https://tranduythanh.com/datasets/CA01_products.xml";
+
+    async function loadProducts() {
+    const url = "https://tranduythanh.com/datasets/CA01_products.xml";
+    const proxy = "https://api.allorigins.win/get?url=" + encodeURIComponent(url);
+
+    try {
+        const res = await fetch(proxy);
+        const data = await res.json();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(data.contents, "text/xml");
+        const products = xml.querySelectorAll("Product");
+
+        let table = `
+        <table border="1" cellspacing="0" cellpadding="8">
+            <tr style="background-color: #f0f0f0;">
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Description</th>
+            </tr>`;
+
+        products.forEach(p => {
+        const id = p.querySelector("id")?.textContent || "";
+        const name = p.querySelector("name")?.textContent || "";
+        const price = p.querySelector("price")?.textContent || "";
+        const quantity = p.querySelector("quantity")?.textContent || "";
+        const description = p.querySelector("description")?.textContent || "";
+
+        table += `
+            <tr>
+            <td>${id}</td>
+            <td>${name}</td>
+            <td>${price}</td>
+            <td>${quantity}</td>
+            <td>${description}</td>
+            </tr>`;
+        });
+
+        table += "</table>";
+        document.getElementById("productTable").innerHTML = table;
+
+    } catch (error) {
+        document.getElementById("productTable").innerHTML = "<p style='color:red;'>Không thể tải sản phẩm!</p>";
+        console.error(error);
+    }
+    }
+
+        loadProducts();
+  </script>
+</body>
+</html>
